@@ -19,6 +19,66 @@ body,
   width: 100vw;
   height: 100vh;
   overflow: hidden;
+  cursor: none;
+}
+
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 22px;
+  height: 22px;
+  margin: -11px 0 0 -11px;
+  pointer-events: none;
+  z-index: 50;
+  background: #2b2b2b;
+  transition: border-radius 0.25s ease, transform 0.4s ease-out, rotate 0.25s ease;
+}
+
+.cursor-circle {
+  border-radius: 50%;
+}
+
+.cursor-ring {
+  background: none;
+  border: 2px solid #2b2b2b;
+  border-radius: 50%;
+}
+
+.cursor-square {
+  border-radius: 2px;
+}
+
+.cursor-diamond {
+  border-radius: 2px;
+  rotate: 45deg;
+}
+
+.cursor-plus {
+  background: none;
+  width: 22px;
+  height: 22px;
+}
+
+.cursor-plus::before,
+.cursor-plus::after {
+  content: '';
+  position: absolute;
+  background: #2b2b2b;
+}
+
+.cursor-plus::before {
+  top: 9px;
+  left: 0;
+  width: 22px;
+  height: 4px;
+}
+
+.cursor-plus::after {
+  left: 9px;
+  top: 0;
+  width: 4px;
+  height: 22px;
 }
 
 .bg-canvas {
