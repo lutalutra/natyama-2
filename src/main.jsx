@@ -8,12 +8,10 @@ import './App.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<App />} />
-        <Route path="/studio" element={<Studio />} />
-        <Route path="/archive" element={<Archive />} />
-      </Routes>
-    </BrowserRouter>
+<BrowserRouter basename="/natyama-2">
+  <Routes>
+    ...
+  </Routes>
+</BrowserRouter>
   </React.StrictMode>,
 )
