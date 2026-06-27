@@ -17,6 +17,12 @@ const MONO_EFFECTS = ['shade', 'grid', 'lines']
 
 const ROLL_INTERVAL_MS = 140
 
+// Custom cursor "frames" — since we have no photo assets to swap through,
+// the cursor cycles through a small set of geometric marks instead, giving
+// the same "flipping through images" feel as the cursor moves.
+const CURSOR_SHAPES = ['circle', 'ring', 'square', 'diamond', 'plus']
+const CURSOR_ROLL_DISTANCE = 26 // px of mouse travel before the shape rolls
+
 export default function App() {
   const canvasRef = useRef(null)
 
@@ -39,6 +45,9 @@ export default function App() {
 
   const [hoverKey, setHoverKey] = useState(null)
   const [lang, setLang] = useState('en')
+  const [cursorShape, setCursorShape] = useState(CURSOR_SHAPES[0])
+  const cursorRef = useRef(null)
+  const cursorState = useRef({ lastX: null, lastY: null, traveled: 0, shapeIndex: 0 })
 
   // Pick up the visitor's browser language on first render.
   useEffect(() => {
@@ -271,6 +280,31 @@ export default function App() {
     }
   }, [])
 
+  // Drive the custom cursor: move the marker with the pointer, and roll to
+  // the next shape once the cursor has traveled far enough — so the marker
+  // visibly changes "frame" as the visitor moves across the screen.
+  useEffect(() => {
+    function onMove(e) {
+      const el = cursorRef.current
+      if (el) {
+        el.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`
+      }
+      const s = cursorState.current
+      if (s.lastX != null) {
+        s.traveled += Math.hypot(e.clientX - s.lastX, e.clientY - s.lastY)
+        if (s.traveled >= CURSOR_ROLL_DISTANCE) {
+          s.traveled = 0
+          s.shapeIndex = (s.shapeIndex + 1) % CURSOR_SHAPES.length
+          setCursorShape(CURSOR_SHAPES[s.shapeIndex])
+        }
+      }
+      s.lastX = e.clientX
+      s.lastY = e.clientY
+    }
+    window.addEventListener('mousemove', onMove)
+    return () => window.removeEventListener('mousemove', onMove)
+  }, [])
+
   const lastRollRef = useRef(0)
 
   // Re-rolls the active background effect, throttled so moving/wiggling the
@@ -321,6 +355,7 @@ export default function App() {
   return (
     <div className="canvas-page">
       <canvas ref={canvasRef} className="bg-canvas" />
+      <div ref={cursorRef} className={`custom-cursor cursor-${cursorShape}`} />
 
       <div className="overlay">
         <div className="lang-switch">
