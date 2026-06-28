@@ -39,7 +39,6 @@ export default function App() {
 
   const [hoverKey, setHoverKey] = useState(null)
   const [lang, setLang] = useState('en')
-  const cursorRef = useRef(null)
 
   // Pick up the visitor's browser language on first render.
   useEffect(() => {
@@ -272,18 +271,6 @@ export default function App() {
     }
   }, [])
 
-  // Drive the custom cursor: just keep the marker glued to the pointer.
-  useEffect(() => {
-    function onMove(e) {
-      const el = cursorRef.current
-      if (el) {
-        el.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`
-      }
-    }
-    window.addEventListener('mousemove', onMove)
-    return () => window.removeEventListener('mousemove', onMove)
-  }, [])
-
   const lastRollRef = useRef(0)
 
   // Re-rolls the active background effect, throttled so moving/wiggling the
@@ -334,7 +321,6 @@ export default function App() {
   return (
     <div className="canvas-page">
       <canvas ref={canvasRef} className="bg-canvas" />
-      <div ref={cursorRef} className="custom-cursor" />
 
       <div className="overlay">
         <div className="lang-switch">
