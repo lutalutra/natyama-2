@@ -17,6 +17,8 @@ const MONO_EFFECTS = ['shade', 'grid', 'lines']
 
 const ROLL_INTERVAL_MS = 140
 
+const CONTACT_EMAIL = 'n@natyama.com'
+
 export default function App() {
   const canvasRef = useRef(null)
 
@@ -39,6 +41,8 @@ export default function App() {
 
   const [hoverKey, setHoverKey] = useState(null)
   const [lang, setLang] = useState('en')
+  const [contactOpen, setContactOpen] = useState(false)
+  const [contactForm, setContactForm] = useState({ name: '', email: '', subject: '', message: '' })
 
   // Pick up the visitor's browser language on first render.
   useEffect(() => {
@@ -318,6 +322,24 @@ export default function App() {
     }, 320)
   }
 
+  const openContact = () => setContactOpen(true)
+  const closeContact = () => setContactOpen(false)
+
+  const handleContactChange = (field) => (e) => {
+    setContactForm((prev) => ({ ...prev, [field]: e.target.value }))
+  }
+
+  // No backend — compose a mailto: link from the form fields and hand off
+  // to the visitor's mail client, then close the modal.
+  const handleContactSubmit = (e) => {
+    e.preventDefault()
+    const { name, email, subject, message } = contactForm
+    const bodyLines = [message, '', `${t.contactName}: ${name}`, `${t.contactEmail}: ${email}`]
+    const mailtoUrl = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject || t.contactTitle)}&body=${encodeURIComponent(bodyLines.join('\n'))}`
+    window.location.href = mailtoUrl
+    closeContact()
+  }
+
   return (
     <div className="canvas-page">
       <canvas ref={canvasRef} className="bg-canvas" />
@@ -353,6 +375,9 @@ export default function App() {
               </span>
             ))}
           </span>
+          <button type="button" className="contact-trigger" onClick={openContact}>
+            {t.contactButton}
+          </button>
         </div>
 
         <div
@@ -364,6 +389,50 @@ export default function App() {
           <span className="brand">{t.archiveBy}</span>
         </div>
       </div>
+
+      {contactOpen && (
+        <div className="contact-backdrop" onClick={closeContact}>
+          <form className="contact-card" onClick={(e) => e.stopPropagation()} onSubmit={handleContactSubmit}>
+            <button type="button" className="contact-close" onClick={closeContact} aria-label={t.contactClose}>
+              ×
+            </button>
+            <h2 className="contact-card-title">{t.contactTitle}</h2>
+            <input
+              className="contact-input"
+              type="text"
+              placeholder={t.contactNamePlaceholder}
+              value={contactForm.name}
+              onChange={handleContactChange('name')}
+              required
+            />
+            <input
+              className="contact-input"
+              type="email"
+              placeholder={t.contactEmailPlaceholder}
+              value={contactForm.email}
+              onChange={handleContactChange('email')}
+              required
+            />
+            <input
+              className="contact-input"
+              type="text"
+              placeholder={t.contactSubjectPlaceholder}
+              value={contactForm.subject}
+              onChange={handleContactChange('subject')}
+            />
+            <textarea
+              className="contact-textarea"
+              placeholder={t.contactMessagePlaceholder}
+              value={contactForm.message}
+              onChange={handleContactChange('message')}
+              required
+            />
+            <button type="submit" className="contact-submit">
+              {t.contactSend}
+            </button>
+          </form>
+        </div>
+      )}
     </div>
   )
 }
