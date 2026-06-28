@@ -10,13 +10,13 @@ export const copy = {
   en: {
     studioBrand: 'STUDIO',
     studioName: 'natyama',
-    studioDetail: ['Information/Editorial Design', '', 'n@natyama.com'],
+    studioDetail: ['Design support for cultural, educational', 'and publishing projects.', '', 'n@natyama.com'],
     archiveBy: 'by Natsumi Sugiyama',
   },
   ja: {
     studioBrand: 'STUDIO',
     studioName: 'natyama',
-    studioDetail: ['文化・教育・出版周辺のデザイン支援', '', 'n@natyama.com'],
+    studioDetail: ['文化・教育・出版プロジェクトのデザイン支援', '', 'n@natyama.com'],
     archiveBy: 'by スギヤマナツミ',
   },
 }
