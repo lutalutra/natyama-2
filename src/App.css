@@ -125,6 +125,112 @@ body,
   transform: scale(1.06);
 }
 
+.contact-trigger {
+  margin-top: 0.6rem;
+  align-self: flex-start;
+  background: rgba(40, 40, 40, 0.78);
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 0.55rem 1.1rem;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+
+.contact-trigger:hover {
+  background: rgba(20, 20, 20, 0.9);
+  transform: scale(1.03);
+}
+
+.contact-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(20, 20, 20, 0.25);
+  backdrop-filter: blur(4px);
+}
+
+.contact-card {
+  position: relative;
+  width: min(420px, 86vw);
+  max-height: 86vh;
+  overflow-y: auto;
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 18px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18);
+}
+
+.contact-card-title {
+  margin: 0 0 0.4rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.contact-close {
+  position: absolute;
+  top: 0.8rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.6rem;
+  line-height: 1;
+  color: rgba(20, 20, 20, 0.6);
+  cursor: pointer;
+}
+
+.contact-input,
+.contact-textarea {
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.04);
+  padding: 0.85rem 1rem;
+  font: inherit;
+  font-size: 0.95rem;
+  color: #2b2b2b;
+  text-align: center;
+  resize: none;
+}
+
+.contact-textarea {
+  min-height: 140px;
+  text-align: left;
+}
+
+.contact-input::placeholder,
+.contact-textarea::placeholder {
+  color: rgba(40, 40, 40, 0.5);
+}
+
+.contact-submit {
+  margin-top: 0.4rem;
+  background: rgba(40, 40, 40, 0.85);
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 0.75rem 1.2rem;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.25s ease;
+}
+
+.contact-submit:hover {
+  background: rgba(20, 20, 20, 0.95);
+}
+
 @media (max-width: 720px) {
   .corner-tl {
     top: 1.4rem;
