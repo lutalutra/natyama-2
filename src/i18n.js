@@ -37,7 +37,7 @@ export const copy = {
     contactEmail: '連絡先',
     contactEmailPlaceholder: 'メールアドレス',
     contactSubject: '件名',
-    contactSubjectPlaceholder: '問い合わせ内容選択、または自由記述件名',
+    contactSubjectPlaceholder: '件名',
     contactMessage: '内容',
     contactMessagePlaceholder: 'お問い合わせ内容をご記入ください',
     contactSend: '送信',
