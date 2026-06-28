@@ -10,7 +10,7 @@ export const copy = {
   en: {
     studioBrand: 'STUDIO',
     studioName: 'natyama',
-    studioDetail: ['Information, editorial and interface design', 'for cultural projects.'],
+    studioDetail: ['Design for editorial, digital,', 'and research contexts.'],
     archiveBy: 'by Natsumi Sugiyama',
     contactButton: 'Ask me anything',
     contactTitle: 'Get in touch',
